@@ -1,0 +1,19 @@
+# Build files
+**/build
+**/*.build
+
+# Generated files
+**/Makefile
+
+# CMake garbage
+**/CMakeFiles
+**/CMakeScripts
+**/.cache
+**/.cmake
+**/cmake_install.cmake
+
+# MacOS garbage
+**/.DS_Store
+
+# VSCode garbage (haha redundant)
+.vscode
