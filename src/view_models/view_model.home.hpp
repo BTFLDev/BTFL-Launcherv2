@@ -6,8 +6,11 @@
 
 #include <gaze.hpp>
 
+#include "managers/manager.asset.hpp"
+#include "models/model.asset.hpp"
 #include "shapes/shape.action_button.hpp"
 #include "strings/strings.hpp"
+#include "style/style.spacing.hpp"
 
 namespace ViewModel {
 
@@ -19,6 +22,19 @@ public:
         this
     };
     wxFont mainButtonFont{Constants::DefaultMainButtonFont()};
+
+    gaze::source<wxString> settingsButtonText{wxString(), this};
+    gaze::source<wxBitmapBundle> settingsButtonIcon{
+        Manager::Asset::GetIcon(Model::Asset::Icon::REDDIT, {32, 32}),
+        this
+    };
+    gaze::source<int> settingsButtonYPadding{Style::Spacing::S16()};
+    gaze::source<int> settingsButtonXPadding{Style::Spacing::S16()};
+    gaze::source<Shape::ActionButton::State> settingsButtonState{
+        Shape::ActionButton::State::IDLE,
+        this
+    };
+    wxFont settingsButtonFont{Constants::DefaultMainButtonFont()};
 
 protected:
     void subject_udpated(const gaze::subject* subj) {}

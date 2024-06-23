@@ -1,4 +1,5 @@
 #include "views/view.home.hpp"
+#include <optional>
 
 #include "managers/manager.asset.hpp"
 #include "managers/manager.screen.hpp"
@@ -43,18 +44,23 @@ void Home::Create(wxWindow* parent, wxSFDiagramManager* manager, ViewModel::Home
         wxDefaultPosition,
         wxDefaultPosition,
         Constants::MainButtonCornerRadius(),
-        manager
+        manager,
+        &this->pViewModel->settingsButtonIcon
     );
     manager->AddShape(this->pMainButton, nullptr, wxDefaultPosition, true, false);
 
     this->pSettingsButton = new Shape::ActionButton(
-        &this->pViewModel->mainButtonText,
-        &this->pViewModel->mainButtonState,
-        this->pViewModel->mainButtonFont,
+        &this->pViewModel->settingsButtonText,
+        &this->pViewModel->settingsButtonState,
+        this->pViewModel->settingsButtonFont,
         wxDefaultPosition,
         wxDefaultPosition,
         Constants::MainButtonCornerRadius(),
-        manager
+        manager,
+        &this->pViewModel->settingsButtonIcon,
+        std::nullopt,
+        &this->pViewModel->settingsButtonYPadding,
+        &this->pViewModel->settingsButtonXPadding
     );
     manager->AddShape(this->pSettingsButton, nullptr, wxDefaultPosition, true, false);
 
