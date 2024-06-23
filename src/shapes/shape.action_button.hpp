@@ -33,7 +33,7 @@ public:
         const wxRealPoint& size,
         double radius,
         wxSFDiagramManager* manager,
-        std::optional<gaze::source<wxBitmap>*> icon = std::nullopt,
+        std::optional<gaze::source<wxBitmapBundle>*> icon = std::nullopt,
         std::optional<gaze::source<bool>*> isEnabled = std::nullopt,
         std::optional<gaze::source<int>*> xPadding = std::nullopt,
         std::optional<gaze::source<int>*> yPadding = std::nullopt
@@ -81,7 +81,8 @@ private:
 
     int xLabel = Constants::DefaultXLabel();
 
-    gaze::source<wxBitmap>* icon{nullptr};
+    gaze::source<wxBitmapBundle>* iconBundle{nullptr};
+    wxBitmap icon{};
     double iconScale = 1.0, iconRatio = 1.0;
     int xIcon = Constants::DefaultXBitmap(), yIcon = Constants::DefaultYBitmap();
 
