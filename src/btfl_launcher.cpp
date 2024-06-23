@@ -19,10 +19,10 @@ bool BTFLLauncher::OnInit() {
 
     std::srand(std::time(nullptr));
 
-    wxFileName fontPath = Manager::Asset::GetAssetsPath();
-    fontPath.AppendDir("Fonts");
-    fontPath.SetName("Lora-Regular.ttf");
-    wxFont::AddPrivateFont(fontPath.GetFullPath()); // why isn't this working??
+    // wxFileName fontPath = Manager::Asset::GetAssetsPath();
+    // fontPath.AppendDir("Fonts");
+    // fontPath.SetName("Lora-Regular.ttf");
+    // wxFont::AddPrivateFont(fontPath.GetFullPath()); // why isn't this working??
 
     wxBitmap frameShape = Manager::Asset::GetShape(Model::Asset::Shape::MAIN_FRAME);
     this->pAppFrame = new Frame::AppMain(
