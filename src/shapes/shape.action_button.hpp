@@ -52,10 +52,12 @@ protected:
     virtual void subject_updated(const gaze::subject* subj) override;
 
 private:
-    void RecalculateSelf(const wxSize& soloIconSize = wxDefaultSize);
+    void RecalculateSelf();
     wxSize CalculateLabelSize(wxSFShapeCanvas* pCanvas);
 
     void UpdateStateValues();
+
+    void UpdateIcon();
 
     int GetXPadding();
     int GetYPadding();
@@ -79,11 +81,10 @@ private:
     wxFont font{};
     wxColour labelColour{Style::Color::White()};
 
-    int xLabel = Constants::DefaultXLabel();
+    int xLabel = Constants::DefaultXPadding(), yLabel = Constants::DefaultYPadding();
 
     gaze::source<wxBitmapBundle>* iconBundle{nullptr};
     wxBitmap icon{};
-    double iconScale = 1.0, iconRatio = 1.0;
     int xIcon = Constants::DefaultXBitmap(), yIcon = Constants::DefaultYBitmap();
 
 private:
@@ -91,12 +92,12 @@ private:
         constexpr inline static const double DefaultUserScale() { return 1.0; }
 
         constexpr inline static const int DefaultXPadding() { return 35; }
-        constexpr inline static const int DefaultYPadding() { return 12; }
-
-        constexpr inline static const int DefaultXLabel() { return 30; }
+        constexpr inline static const int DefaultYPadding() { return 16; }
 
         constexpr inline static const int DefaultXBitmap() { return 30; }
         constexpr inline static const int DefaultYBitmap() { return 0; }
+
+        constexpr inline static const int LabelIconPadding() { return 10; }
 
         constexpr inline static const int DisabledIconBrightness() { return 0; }
 

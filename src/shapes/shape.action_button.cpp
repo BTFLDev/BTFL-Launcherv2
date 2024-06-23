@@ -1,6 +1,9 @@
 #include "shapes/shape.action_button.hpp"
 
+#include <wx/gdicmn.h>
 #include <wx/msgdlg.h>
+
+#include <algorithm>
 
 #include "style/style.color.hpp"
 #include "wx/wxsf/RoundRectShape.h"
@@ -52,7 +55,7 @@ ActionButton::ActionButton(
 
     if (icon.has_value()) {
         this->iconBundle = this->watch_assign(icon.value());
-        this->icon = this->iconBundle->get().GetBitmapFor(this->GetParentCanvas());
+        this->UpdateIcon();
     }
     if (isEnabled.has_value()) {
         this->isEnabled = this->watch_assign(isEnabled.value());
@@ -70,7 +73,7 @@ ActionButton::ActionButton(
 
 void ActionButton::subject_updated(const gaze::subject* subj) {
     if (subj == this->iconBundle) {
-        this->icon = this->iconBundle->get().GetBitmapFor(this->GetParentCanvas());
+        this->UpdateIcon();
     }
 
     if (subj == this->state) {
@@ -79,52 +82,48 @@ void ActionButton::subject_updated(const gaze::subject* subj) {
     this->RecalculateSelf();
 }
 
-void ActionButton::RecalculateSelf(const wxSize& soloIconSize) {
+void ActionButton::RecalculateSelf() {
     wxSFShapeCanvas* pCanvas = this->GetParentCanvas();
     if (pCanvas == nullptr) {
         return;
     }
 
-    wxSize labelSize = this->CalculateLabelSize(pCanvas);
-    labelSize.y -= 5;  // ???
+    wxSize contentSize = this->CalculateLabelSize(pCanvas);
+    contentSize.y -= 5;  // ???
     this->xLabel = this->GetXPadding();
-
-    this->SetRectSize(
-        labelSize.x + (this->GetXPadding() * 2),
-        labelSize.y + (this->GetYPadding() * 2)
-    );
+    this->yLabel = this->GetYPadding();
 
     if (this->iconBundle != nullptr) {
+        const double iconScale = double(this->icon.GetWidth()) / this->icon.GetLogicalWidth();
+        const wxSize iconSize{
+            int(this->icon.GetWidth() / iconScale),
+            int(this->icon.GetHeight() / iconScale)
+        };
+        this->xIcon = this->GetXPadding();
+        this->yIcon = this->GetYPadding();
+
         if (this->label->get().IsEmpty()) {
-            if (soloIconSize != wxDefaultSize) {
-                double curRatio = (double)soloIconSize.x / soloIconSize.y;
-                if (curRatio > this->iconRatio) {
-                    this->iconScale = (double)soloIconSize.y / this->icon.GetHeight();
-                    this->xIcon = (soloIconSize.x / 2) -
-                                  ((double)(this->icon.GetWidth() * this->iconScale) / 2) +
-                                  this->GetXPadding();
-                    this->yIcon = this->GetYPadding();
-                } else {
-                    this->iconScale = (double)soloIconSize.x / this->icon.GetWidth();
-                    this->yIcon = (soloIconSize.y / 2) -
-                                  (((double)this->icon.GetHeight() * this->iconScale) / 2) +
-                                  this->GetYPadding();
-                    this->xIcon = this->GetXPadding();
-                }
-
-                labelSize.x = (double)this->icon.GetWidth() * this->iconScale;
-                labelSize.y = (double)this->icon.GetHeight() * this->iconScale;
-            }
+            contentSize = iconSize;
         } else {
-            this->iconScale = double(labelSize.y - 4) / (this->icon.GetHeight());
-            this->yIcon = this->GetYPadding() + 2;
-            this->xIcon = this->GetXPadding();
+            const int extraContentWidth = iconSize.x + Constants::LabelIconPadding();
+            const int labelHeight = contentSize.y;
 
-            int bmpx = (double)this->icon.GetWidth() * this->iconScale;
-            labelSize.x += bmpx + 10;
-            this->xLabel += bmpx + 10;
+            contentSize.x += extraContentWidth;
+            contentSize.y = std::max(iconSize.y, contentSize.y);
+
+            this->xLabel += extraContentWidth;
+            if (labelHeight < contentSize.y) {
+                this->yLabel += (contentSize.y - labelHeight) / 2;
+            } else {
+                this->yIcon += (labelHeight - contentSize.y) / 2;
+            }
         }
     }
+
+    this->SetRectSize(
+        contentSize.x + (this->GetXPadding() * 2),
+        contentSize.y + (this->GetYPadding() * 2)
+    );
 }
 
 wxSize ActionButton::CalculateLabelSize(wxSFShapeCanvas* pCanvas) {
@@ -155,6 +154,10 @@ void ActionButton::UpdateStateValues() {
     }
 }
 
+void ActionButton::UpdateIcon() {
+    this->icon = this->iconBundle->get().GetBitmapFor(this->GetParentCanvas());
+}
+
 int ActionButton::GetXPadding() {
     if (this->xPadding == nullptr) {
         return Constants::DefaultXPadding();
@@ -178,15 +181,11 @@ void ActionButton::DrawContent(wxDC& dc, bool isHovering) {
 
     dc.DrawText(
         this->label->get(),
-        absolutePos + wxRealPoint{double(this->xLabel), double(this->GetYPadding())}
+        absolutePos + wxRealPoint{double(this->xLabel), double(this->yLabel)}
     );
 
     if (this->iconBundle != nullptr) {
-        dc.SetUserScale(this->iconScale, this->iconScale);
         wxRealPoint iconPos = (absolutePos + wxRealPoint{double(this->xIcon), double(this->yIcon)});
-        iconPos.x /= this->iconScale;
-        iconPos.y /= this->iconScale;
-
         if (isHovering) {
             dc.DrawBitmap(
                 this->icon.ConvertToDisabled(Constants::DisabledIconBrightness()),
