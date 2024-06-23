@@ -4,6 +4,7 @@
 
 # Generated files
 **/Makefile
+**/compile_commands.json
 
 # CMake garbage
 **/CMakeFiles
