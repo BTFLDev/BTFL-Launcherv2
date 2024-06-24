@@ -7,12 +7,12 @@
 #include "managers/manager.asset.hpp"
 #include "style/style.color.hpp"
 
-wxDEFINE_EVENT(EVT_ICON_BUTTON, Element::IconButton::Event);
+wxDEFINE_EVENT(wxEVT_ICON_BUTTON, Element::IconButton::Event);
 
 namespace Element {
 
 IconButton::Event::Event(wxWindowID id, Model::Asset::Icon icon)
-    : wxCommandEvent(EVT_ICON_BUTTON, id), icon(icon) {}
+    : wxCommandEvent(wxEVT_ICON_BUTTON, id), icon(icon) {}
 
 Model::Asset::Icon IconButton::Event::GetIcon() { return this->icon; }
 

@@ -52,6 +52,6 @@ private:
 
 }  // namespace Element
 
-wxDECLARE_EVENT(EVT_ICON_BUTTON, Element::IconButton::Event);
+wxDECLARE_EVENT(wxEVT_ICON_BUTTON, Element::IconButton::Event);
 
 #endif  // _ELEMENT_ICONBUTTON_HPP_

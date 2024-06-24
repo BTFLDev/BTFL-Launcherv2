@@ -28,7 +28,7 @@ SocialContainer::SocialContainer(wxWindow* parent) : wxPanel(parent) {
     for (const Model::SocialMedia& socialMedia : Model::AllSocialMediaCases()) {
         Element::IconButton* pButton =
             new Element::IconButton(this, this->GetSocialMediaIcon(socialMedia));
-        pButton->Bind(EVT_ICON_BUTTON, &SocialContainer::OnIconButton, this);
+        pButton->Bind(wxEVT_ICON_BUTTON, &SocialContainer::OnIconButton, this);
         pHorizontalSizer->Add(
             pButton,
             wxSizerFlags().Center().Border(wxLEFT | wxRIGHT, Style::Spacing::S12())
