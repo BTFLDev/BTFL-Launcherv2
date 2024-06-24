@@ -3,6 +3,7 @@
 
 #include <wx/event.h>
 #include <wx/msgdlg.h>
+#include <wx/wxsf/SFEvents.h>
 
 #include <gaze.hpp>
 
@@ -36,6 +37,8 @@ private:
     void BindEvents();
     void PinButtons();
 
+    void OnSettingsButtonClick(wxSFShapeMouseEvent& event);
+
     void OnSize(wxSizeEvent& size);
 
 private:
@@ -49,6 +52,10 @@ private:
         constexpr inline static const double MainButtonCornerRadius() { return 3.0; }
         inline static const wxRealPoint MainButtonOffset() { return {50.0, -50.0}; }
         inline static const wxRealPoint SettingsButtonOffset() { return {8.0, 0.0}; }
+    };
+
+    enum class ShapeIDs {
+        SETTINGS_BUTTON,
     };
 };
 

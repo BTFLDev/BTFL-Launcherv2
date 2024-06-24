@@ -4,6 +4,7 @@
 #include "managers/manager.asset.hpp"
 #include "managers/manager.screen.hpp"
 #include "models/model.asset.hpp"
+#include "models/model.screen.hpp"
 #include "shapes/shape.action_button.hpp"
 #include "shapes/shape.pinner.hpp"
 #include "utils/background_image_canvas.hpp"
@@ -63,6 +64,7 @@ void Home::Create(wxWindow* parent, wxSFDiagramManager* manager, ViewModel::Home
         &this->pViewModel->settingsButtonXPadding
     );
     manager->AddShape(this->pSettingsButton, nullptr, wxDefaultPosition, true, false);
+    this->pSettingsButton->SetId(int(ShapeIDs::SETTINGS_BUTTON));
 
     this->watch(Manager::Screen::GetScreenSource());
 
@@ -74,7 +76,19 @@ void Home::subject_updated(const gaze::subject* subj) {
     this->CallAfter([this]() { this->LayoutPins(); });
 }
 
-void Home::BindEvents() { Bind(wxEVT_SIZE, &Home::OnSize, this); }
+void Home::BindEvents() {
+    Bind(wxEVT_SIZE, &Home::OnSize, this);
+    Bind(
+        wxEVT_SF_SHAPE_LEFT_DOWN,
+        &Home::OnSettingsButtonClick,
+        this,
+        int(ShapeIDs::SETTINGS_BUTTON)
+    );
+}
+
+void Home::OnSettingsButtonClick(wxSFShapeMouseEvent& event) {
+    Manager::Screen::SetScreen(Model::Screen::SECONDARY);
+}
 
 void Home::OnSize(wxSizeEvent& event) {
     this->LayoutPins();
