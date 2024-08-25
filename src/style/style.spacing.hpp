@@ -5,6 +5,8 @@ namespace Style::Spacing {
 
 inline const int S0() { return 0; }
 inline const int S1() { return 1; }
+inline const int S2() { return 2; }
+inline const int S4() { return 4; }
 inline const int S8() { return 8; }
 inline const int S12() { return 12; }
 inline const int S16() { return 16; }
