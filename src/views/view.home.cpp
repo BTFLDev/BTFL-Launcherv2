@@ -37,6 +37,7 @@ void Home::Create(wxWindow* parent, wxSFDiagramManager* manager, ViewModel::Home
 
     this->RemoveStyle(sfsMULTI_SELECTION);
     this->RemoveStyle(sfsPROCESS_MOUSEWHEEL);
+    this->SetHoverColour(Style::Color::White());
 
     this->pMainButton = new Shape::ActionButton(
         &this->pViewModel->mainButtonText,
