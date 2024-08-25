@@ -37,6 +37,13 @@ public:
 	 */
 	wxSFBitmapShape(const wxRealPoint& pos, const wxString& bitmapPath, wxSFDiagramManager* manager, wxBitmapType type = wxBITMAP_TYPE_ANY);
 	/*!
+	 * \brief User contructor.
+	 * \param pos Initial position
+	 * \param bitmap BMP object
+	 * \param manager Pointer of parent manager
+	 */
+	wxSFBitmapShape(const wxRealPoint& pos, const wxBitmap bitmap, wxSFDiagramManager* manager);
+	/*!
 	 * \brief Copy constructor.
 	 * \param obj Source shape
 	 */
@@ -69,6 +76,12 @@ public:
      * \return TRUE on success, otherwise FALSE
      */
 	bool CreateFromFile(const wxString& file, wxBitmapType type = wxBITMAP_TYPE_BMP );
+    /*!
+	 * \brief Use given bitmap object.
+     * \param bitmap Bitmap object
+     * \return TRUE on success, otherwise FALSE
+     */
+	bool CreateFromBitmap(const wxBitmap bitmap);
     /*!
 	 * \brief Load a bitmap from the XPM structure.
      * \param bits Buffer with the image bits

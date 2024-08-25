@@ -50,6 +50,20 @@ wxSFBitmapShape::wxSFBitmapShape(const wxRealPoint& pos, const wxString& bitmapP
 	MarkSerializableDataMembers();
 }
 
+wxSFBitmapShape::wxSFBitmapShape(const wxRealPoint& pos, const wxBitmap bitmap, wxSFDiagramManager* manager)
+: wxSFRectShape(pos, wxRealPoint(1, 1), manager)
+{
+    m_sBitmapPath = wxT("");
+
+	m_fRescaleInProgress = false;
+	m_fCanScale = sfdvBITMAPSHAPE_SCALEIMAGE;
+
+    CreateFromBitmap(bitmap);
+
+	// mark serialized properties
+	MarkSerializableDataMembers();
+}
+
 wxSFBitmapShape::wxSFBitmapShape(const wxSFBitmapShape& obj)
 : wxSFRectShape(obj)
 {
@@ -115,6 +129,24 @@ bool wxSFBitmapShape::CreateFromFile(const wxString& file, wxBitmapType type)
         RemoveStyle(sfsSIZE_CHANGE);
 
 	return fSuccess;
+}
+
+bool wxSFBitmapShape::CreateFromBitmap(const wxBitmap bitmap)
+{
+    m_Bitmap = bitmap;
+    m_OriginalBitmap = m_Bitmap;
+
+	m_nRectSize.x = m_Bitmap.GetWidth();
+	m_nRectSize.y = m_Bitmap.GetHeight();
+
+	if(m_fCanScale)
+	{
+	    AddStyle(sfsSIZE_CHANGE);
+	}
+	else
+        RemoveStyle(sfsSIZE_CHANGE);
+
+	return bitmap.IsOk();
 }
 
 bool wxSFBitmapShape::CreateFromXPM(const char* const* bits)
