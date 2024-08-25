@@ -1,4 +1,7 @@
 #include "views/view.home.hpp"
+
+#include <wx/msgdlg.h>
+
 #include <optional>
 
 #include "managers/manager.asset.hpp"
@@ -81,6 +84,7 @@ void Home::subject_updated(const gaze::subject* subj) {
 
 void Home::BindEvents() {
     Bind(wxEVT_SIZE, &Home::OnSize, this);
+    Bind(wxEVT_SF_SHAPE_LEFT_DOWN, &Home::OnMainButtonClick, this, int(Shape::IDs::MAIN_BUTTON));
     Bind(
         wxEVT_SF_SHAPE_LEFT_DOWN,
         &Home::OnSettingsButtonClick,
@@ -88,6 +92,8 @@ void Home::BindEvents() {
         int(Shape::IDs::SETTINGS_BUTTON)
     );
 }
+
+void Home::OnMainButtonClick(wxSFShapeMouseEvent& event) { wxMessageBox("hello"); }
 
 void Home::OnSettingsButtonClick(wxSFShapeMouseEvent& event) {
     Manager::Screen::SetScreen(Model::Screen::SECONDARY);

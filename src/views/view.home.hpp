@@ -37,6 +37,7 @@ private:
     void BindEvents();
     void PinButtons();
 
+    void OnMainButtonClick(wxSFShapeMouseEvent& event);
     void OnSettingsButtonClick(wxSFShapeMouseEvent& event);
 
     void OnSize(wxSizeEvent& size);
