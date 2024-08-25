@@ -10,6 +10,7 @@
 #include "models/model.screen.hpp"
 #include "shapes/shape.action_button.hpp"
 #include "shapes/shape.ids.hpp"
+#include "shapes/shape.iso_info.hpp"
 #include "shapes/shape.pinner.hpp"
 #include "utils/background_image_canvas.hpp"
 
@@ -73,6 +74,16 @@ void Home::Create(wxWindow* parent, wxSFDiagramManager* manager, ViewModel::Home
     manager->AddShape(this->pSettingsButton, nullptr, wxDefaultPosition, true, false);
     this->pSettingsButton->SetId(int(Shape::IDs::SETTINGS_BUTTON));
 
+    this->pIsoInfoShape = new Shape::ISOInfo(
+        &this->pViewModel->isoFile,
+        &this->pViewModel->isoState,
+        wxDefaultPosition,
+        wxDefaultPosition,
+        manager
+    );
+    manager->AddShape(this->pIsoInfoShape, nullptr, wxDefaultPosition, true, false);
+    this->pIsoInfoShape->SetId(int(Shape::IDs::ISO_INFO));
+
     this->watch(Manager::Screen::GetScreenSource());
 
     this->BindEvents();
@@ -124,6 +135,12 @@ void Home::PinButtons() {
         Shape::PinPoint::LEFT,
         Shape::PinPoint::RIGHT,
         Constants::SettingsButtonOffset()
+    );
+    this->pIsoInfoShape->PinTo(
+        this->pMainButton,
+        Shape::PinPoint::BOTTOM_LEFT,
+        Shape::PinPoint::TOP_LEFT,
+        Constants::ISOInfoOffset()
     );
 }
 

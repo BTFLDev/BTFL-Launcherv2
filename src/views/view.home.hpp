@@ -8,6 +8,7 @@
 #include <gaze.hpp>
 
 #include "shapes/shape.action_button.hpp"
+#include "shapes/shape.iso_info.hpp"
 #include "shapes/shape.pinner.hpp"
 #include "utils/background_image_canvas.hpp"
 #include "view_models/view_model.home.hpp"
@@ -47,12 +48,14 @@ private:
 
     Shape::ActionButton* pMainButton{nullptr};
     Shape::ActionButton* pSettingsButton{nullptr};
+    Shape::ISOInfo* pIsoInfoShape{nullptr};
 
 private:
     struct Constants {
         constexpr inline static const double MainButtonCornerRadius() { return 3.0; }
         inline static const wxRealPoint MainButtonOffset() { return {50.0, -50.0}; }
         inline static const wxRealPoint SettingsButtonOffset() { return {8.0, 0.0}; }
+        inline static const wxRealPoint ISOInfoOffset() { return {0.0, -8.0}; }
     };
 };
 

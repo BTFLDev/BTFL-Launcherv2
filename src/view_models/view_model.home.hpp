@@ -9,6 +9,7 @@
 #include "managers/manager.asset.hpp"
 #include "models/model.asset.hpp"
 #include "shapes/shape.action_button.hpp"
+#include "shapes/shape.iso_info.hpp"
 #include "strings/strings.hpp"
 #include "style/style.spacing.hpp"
 
@@ -35,6 +36,9 @@ public:
         this
     };
     wxFont settingsButtonFont{Constants::DefaultMainButtonFont()};
+
+    gaze::source<wxString> isoFile{"testing", this};
+    gaze::source<Shape::ISOInfo::State> isoState{Shape::ISOInfo::State::TO_SELECT_ISO, this};
 
 protected:
     void subject_udpated(const gaze::subject* subj) {}
