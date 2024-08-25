@@ -53,10 +53,6 @@ private:
         inline static const wxRealPoint MainButtonOffset() { return {50.0, -50.0}; }
         inline static const wxRealPoint SettingsButtonOffset() { return {8.0, 0.0}; }
     };
-
-    enum class ShapeIDs {
-        SETTINGS_BUTTON,
-    };
 };
 
 }  // namespace View

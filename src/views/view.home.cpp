@@ -6,6 +6,7 @@
 #include "models/model.asset.hpp"
 #include "models/model.screen.hpp"
 #include "shapes/shape.action_button.hpp"
+#include "shapes/shape.ids.hpp"
 #include "shapes/shape.pinner.hpp"
 #include "utils/background_image_canvas.hpp"
 
@@ -50,6 +51,7 @@ void Home::Create(wxWindow* parent, wxSFDiagramManager* manager, ViewModel::Home
         &this->pViewModel->settingsButtonIcon
     );
     manager->AddShape(this->pMainButton, nullptr, wxDefaultPosition, true, false);
+    this->pMainButton->SetId(int(Shape::IDs::MAIN_BUTTON));
 
     this->pSettingsButton = new Shape::ActionButton(
         &this->pViewModel->settingsButtonText,
@@ -65,7 +67,7 @@ void Home::Create(wxWindow* parent, wxSFDiagramManager* manager, ViewModel::Home
         &this->pViewModel->settingsButtonXPadding
     );
     manager->AddShape(this->pSettingsButton, nullptr, wxDefaultPosition, true, false);
-    this->pSettingsButton->SetId(int(ShapeIDs::SETTINGS_BUTTON));
+    this->pSettingsButton->SetId(int(Shape::IDs::SETTINGS_BUTTON));
 
     this->watch(Manager::Screen::GetScreenSource());
 
@@ -83,7 +85,7 @@ void Home::BindEvents() {
         wxEVT_SF_SHAPE_LEFT_DOWN,
         &Home::OnSettingsButtonClick,
         this,
-        int(ShapeIDs::SETTINGS_BUTTON)
+        int(Shape::IDs::SETTINGS_BUTTON)
     );
 }
 
