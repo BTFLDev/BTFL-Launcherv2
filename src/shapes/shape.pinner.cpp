@@ -2,8 +2,6 @@
 
 #include <wx/msgdlg.h>
 
-#include <string>
-
 namespace Shape {
 
 bool Pinner::Pin(Pinner* pinned, PinPoint pinnedPoint, PinPoint pinPoint, wxRealPoint offset) {
