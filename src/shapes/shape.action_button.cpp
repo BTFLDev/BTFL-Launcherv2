@@ -42,6 +42,7 @@ ActionButton::ActionButton(
     std::optional<gaze::source<int>*> yPadding
 )
     : wxSFRoundRectShape(pos, size, radius, manager) {
+    wxLogDebug("Shape/ActionButton: Initializing with text \"%s\"", text->get());
     this->AddStyle(sfsEMIT_EVENTS);
 
     this->RemoveStyle(sfsHIGHLIGHTING);
@@ -83,6 +84,7 @@ void ActionButton::subject_updated(const gaze::subject* subj) {
 }
 
 void ActionButton::RecalculateSelf() {
+    wxLogDebug("Shape/ActionButton: Recalculating self for \"%s\"", this->label->get());
     wxSFShapeCanvas* pCanvas = this->GetParentCanvas();
     if (pCanvas == nullptr) {
         return;

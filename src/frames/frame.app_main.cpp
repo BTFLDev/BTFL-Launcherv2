@@ -14,6 +14,7 @@
 namespace Frame {
 
 void AppMain::Create(const wxString& title, const wxSize& size, long style) {
+    wxLogDebug("Frame/AppMain: Initializing");
     wxFrame::Create(nullptr, -1, title, wxDefaultPosition, size, style);
 
     this->pBook = new wxSimplebook(this);

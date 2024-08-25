@@ -10,10 +10,14 @@ namespace Controller {
 
 LeftSidebar::LeftSidebar(ViewModel::LeftSidebar* const viewModel) : pViewModel(viewModel) {}
 
-void LeftSidebar::Start() const { this->pViewModel->FetchWelcomeText(); }
+void LeftSidebar::Start() const {
+    wxLogDebug("Controller/LeftSidebar: Starting...");
+    this->pViewModel->FetchWelcomeText();
+}
 
 void LeftSidebar::OnSocialIconTap(Component::SocialContainer::Event& event) {
     const wxString socialMediaUrl = this->GetSocialMediaUrl(event.GetSocialMedia());
+    wxLogDebug("Controller/LeftSidebar: Social Icon Tapped: %s. Launching default browser", socialMediaUrl);
     wxLaunchDefaultBrowser(socialMediaUrl);
 }
 

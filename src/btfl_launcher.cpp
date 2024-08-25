@@ -17,6 +17,7 @@ wxIMPLEMENT_APP(BTFLLauncher);
 bool BTFLLauncher::OnInit() {
     this->SetupManagers();
 
+    wxLogDebug("Initializing srand with current time seed");
     std::srand(std::time(nullptr));
 
     // wxFileName fontPath = Manager::Asset::GetAssetsPath();
@@ -31,6 +32,7 @@ bool BTFLLauncher::OnInit() {
         wxFRAME_SHAPED | wxBORDER_NONE
     );
     this->pAppFrame->Hide();
+    wxLogDebug("Setting App Frame to bitmap shape for rounded corners");
     this->pAppFrame->SetShape(wxRegion(frameShape, Style::Color::White()));
     this->pAppFrame->CenterOnScreen();
     this->pAppFrame->Layout();

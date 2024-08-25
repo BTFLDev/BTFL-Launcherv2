@@ -1,5 +1,6 @@
 #include "components/component.footer_main.hpp"
 
+#include <wx/log.h>
 #include <wx/msgdlg.h>
 #include <wx/sizer.h>
 #include <wx/stattext.h>
@@ -18,6 +19,7 @@ FooterMain::~FooterMain() {
 }
 
 void FooterMain::Create(wxWindow* parent) {
+    wxLogDebug("Component/FooterMain: Initializing");
     wxPanel::Create(parent);
 
     this->pController = new Controller::FooterMain();
@@ -51,6 +53,7 @@ void FooterMain::Create(wxWindow* parent) {
 }
 
 void FooterMain::BindEvents() {
+    wxLogDebug("Component/FooterMain: Binding events");
     this->pReadDisclaimerButton
         ->Bind(wxEVT_BUTTON, &Controller::FooterMain::OnReadDisclaimerTapped, this->pController);
 }

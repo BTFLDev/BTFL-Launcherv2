@@ -15,6 +15,7 @@ void BackgroundImageCanvas::Create(
     bool rotate,
     bool move
 ) {
+    wxLogDebug("Utils/BackgroundImageCanvas: Initializing");
     if (manager == nullptr) {
         manager = new wxSFDiagramManager;
     }

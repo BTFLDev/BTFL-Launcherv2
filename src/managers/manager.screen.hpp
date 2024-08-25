@@ -1,6 +1,8 @@
 #ifndef __MANAGER_SCREEN_HPP__
 #define __MANAGER_SCREEN_HPP__
 
+#include <wx/log.h>
+
 #include <gaze.hpp>
 
 #include "models/model.screen.hpp"
@@ -11,7 +13,10 @@ class Screen {
 public:
     Screen(const Screen& other) = delete;
 
-    inline static void SetScreen(Model::Screen screen) { Instance().currentScreen.set(screen); }
+    inline static void SetScreen(Model::Screen screen) {
+        Instance().currentScreen.set(screen);
+        wxLogDebug("Manager/Screen: Setting active screen to %s", Screen::GetScreenName(screen));
+    }
     inline static Model::Screen GetScreen() { return Instance().currentScreen.get(); }
 
     inline static gaze::source<Model::Screen>* GetScreenSource() {
@@ -25,6 +30,8 @@ public:
 
 private:
     Screen() = default;
+
+    static wxString GetScreenName(Model::Screen screen);
 
 private:
     gaze::source<Model::Screen> currentScreen{Model::Screen::MAIN};

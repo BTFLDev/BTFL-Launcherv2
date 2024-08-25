@@ -1,5 +1,6 @@
 #include "views/view.left_sidebar.hpp"
 
+#include <wx/log.h>
 #include <wx/msgdlg.h>
 #include <wx/sizer.h>
 
@@ -14,6 +15,7 @@ LeftSidebar::LeftSidebar(wxWindow* parent, ViewModel::LeftSidebar* viewModel)
     : wxPanel(parent, -1, wxDefaultPosition, Constants::ViewSize()),
       pViewModel(viewModel),
       pController(new Controller::LeftSidebar(pViewModel)) {
+    wxLogDebug("View/LeftSidebar: Initializing");
     this->pSocialContainer = new Component::SocialContainer(this);
 
     wxBoxSizer* const pVerticalSizer = new wxBoxSizer(wxVERTICAL);
@@ -38,6 +40,7 @@ LeftSidebar::~LeftSidebar() {
 }
 
 void LeftSidebar::BindEvents() {
+    wxLogDebug("View/LeftSidebar: Binding events");
     this->pSocialContainer
         ->Bind(EVT_SOCIAL_CONTAINER, &Controller::LeftSidebar::OnSocialIconTap, this->pController);
 }

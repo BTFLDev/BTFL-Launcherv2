@@ -1,10 +1,13 @@
 #include "components/component.read_only_rtc.hpp"
 
+#include <wx/log.h>
+
 #include "managers/manager.asset.hpp"
 
 namespace Component {
 
 void ReadOnlyRTC::Create(wxWindow *parent, const wxString &value) {
+    wxLogDebug("Component/ReadOnlyRTC: Initializing");
     wxRichTextCtrl::Create(parent, -1, value, wxDefaultPosition, wxDefaultSize, wxBORDER_NONE);
 
     this->shadowBmp = Manager::Asset::GetMaterial(
@@ -25,6 +28,7 @@ void ReadOnlyRTC::Create(wxWindow *parent, const wxString &value) {
 }
 
 void ReadOnlyRTC::BindEvents() {
+    wxLogDebug("Component/ReadOnlyRTC: Binding events");
     Bind(wxEVT_SET_FOCUS, [](wxFocusEvent &) {});
     Bind(wxEVT_LEFT_DOWN, [](wxMouseEvent &) {});
     Bind(wxEVT_RIGHT_UP, [](wxMouseEvent &) {});

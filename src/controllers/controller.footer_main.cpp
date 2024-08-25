@@ -7,6 +7,7 @@
 namespace Controller {
 
 void FooterMain::OnReadDisclaimerTapped(wxCommandEvent& event) {
+    wxLogDebug("Controller/FooterMain: Read Disclaimer button tapped");
     Manager::Screen::SetScreen(Model::Screen::SECONDARY);
 }
 

@@ -1,11 +1,14 @@
 #include "view_models/view_model.left_sidebar.hpp"
 
+#include <wx/log.h>
+
 #include <chrono>
 #include <thread>
 
 namespace ViewModel {
 
 void LeftSidebar::FetchWelcomeText() {
+    wxLogDebug("ViewModel/LeftSidebar: Fetching Welcome Text");
     std::thread([this]() {
         std::this_thread::sleep_for(std::chrono::seconds(1));
         this->sWelcome.set("Loading 5...");

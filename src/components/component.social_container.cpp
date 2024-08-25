@@ -1,5 +1,6 @@
 #include "components/component.social_container.hpp"
 
+#include <wx/log.h>
 #include <wx/msgdlg.h>
 #include <wx/sizer.h>
 
@@ -23,6 +24,7 @@ void SocialContainer::Event::SetSocialMedia(Model::SocialMedia socialMedia) {
 }
 
 SocialContainer::SocialContainer(wxWindow* parent) : wxPanel(parent) {
+    wxLogDebug("Component/SocialContainer: Initializing");
     wxBoxSizer* pHorizontalSizer = new wxBoxSizer(wxHORIZONTAL);
 
     for (const Model::SocialMedia& socialMedia : Model::AllSocialMediaCases()) {
@@ -79,6 +81,7 @@ Model::SocialMedia SocialContainer::GetSocialMedia(Model::Asset::Icon socialMedi
 
 void Component::SocialContainer::OnIconButton(Element::IconButton::Event& event) {
     Model::SocialMedia socialMedia = this->GetSocialMedia(event.GetIcon());
+    wxLogDebug("Component/SocialContainer: Icon Button tapped");
 
     Event socialEvent{this->GetId(), socialMedia};
     socialEvent.SetEventObject(this);

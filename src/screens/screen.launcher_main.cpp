@@ -13,6 +13,7 @@
 namespace Screen {
 
 void LauncherMain::Create(wxWindow* parent) {
+    wxLogDebug("Screen/LauncherMain: Initializing");
     wxPanel::Create(parent);
 
     wxBoxSizer* pHorizontalSizer = new wxBoxSizer(wxHORIZONTAL);

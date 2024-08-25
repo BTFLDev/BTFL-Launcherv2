@@ -22,6 +22,7 @@ Home::Home(wxWindow* parent, wxSFDiagramManager* manager, ViewModel::Home* viewM
 Home::~Home() { delete this->pViewModel; }
 
 void Home::Create(wxWindow* parent, wxSFDiagramManager* manager, ViewModel::Home* viewModel) {
+    wxLogDebug("View/Home: Initializing");
     Utils::BackgroundImageCanvas::Create(
         parent,
         manager,
@@ -83,6 +84,7 @@ void Home::subject_updated(const gaze::subject* subj) {
 }
 
 void Home::BindEvents() {
+    wxLogDebug("View/Home: Binding events");
     Bind(wxEVT_SIZE, &Home::OnSize, this);
     Bind(wxEVT_SF_SHAPE_LEFT_DOWN, &Home::OnMainButtonClick, this, int(Shape::IDs::MAIN_BUTTON));
     Bind(
@@ -93,18 +95,24 @@ void Home::BindEvents() {
     );
 }
 
-void Home::OnMainButtonClick(wxSFShapeMouseEvent& event) { wxMessageBox("hello"); }
+void Home::OnMainButtonClick(wxSFShapeMouseEvent& event) {
+    wxLogDebug("View/Home: Main Button clicked");
+    wxMessageBox("hello");
+}
 
 void Home::OnSettingsButtonClick(wxSFShapeMouseEvent& event) {
+    wxLogDebug("View/Home: Settings Button clicked. Will Change screen to secondary");
     Manager::Screen::SetScreen(Model::Screen::SECONDARY);
 }
 
 void Home::OnSize(wxSizeEvent& event) {
+    wxLogDebug("View/Home: OnSize called. Laying out pins");
     this->LayoutPins();
     event.Skip();
 }
 
 void Home::PinButtons() {
+    wxLogDebug("View/Home: Pinning buttons");
     this->Pin(
         this->pMainButton,
         Shape::PinPoint::BOTTOM_LEFT,
