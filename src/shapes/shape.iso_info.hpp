@@ -43,7 +43,7 @@ public:  // Pinner implementation
     }
     inline virtual wxRealPoint GetSize() override { return this->GetRectSize(); }
 
-protected:
+protected: // Watcher implementation
     virtual void subject_updated(const gaze::subject* subj) override;
 
 private:

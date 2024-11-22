@@ -9,6 +9,10 @@ enum class Icon {
     TWITTER,
     WEBSITE,
     YOUTUBE,
+
+    BROWSE,
+    SETTINGS,
+    VERIFY,
 };
 
 enum class Material {

@@ -53,7 +53,7 @@ void Home::Create(wxWindow* parent, wxSFDiagramManager* manager, ViewModel::Home
         wxDefaultPosition,
         Constants::MainButtonCornerRadius(),
         manager,
-        &this->pViewModel->settingsButtonIcon
+        &this->pViewModel->mainButtonIcon
     );
     manager->AddShape(this->pMainButton, nullptr, wxDefaultPosition, true, false);
     this->pMainButton->SetId(int(Shape::IDs::MAIN_BUTTON));

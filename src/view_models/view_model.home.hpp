@@ -18,6 +18,10 @@ namespace ViewModel {
 class Home : public gaze::watcher {
 public:
     gaze::source<wxString> mainButtonText{Strings::View::Home::SelectISO(), this};
+    gaze::source<wxBitmapBundle> mainButtonIcon{
+        Manager::Asset::GetIcon(Model::Asset::Icon::SETTINGS, {32, 32}),
+        this
+    };
     gaze::source<Shape::ActionButton::State> mainButtonState{
         Shape::ActionButton::State::IDLE,
         this
@@ -26,7 +30,7 @@ public:
 
     gaze::source<wxString> settingsButtonText{wxString(), this};
     gaze::source<wxBitmapBundle> settingsButtonIcon{
-        Manager::Asset::GetIcon(Model::Asset::Icon::REDDIT, {32, 32}),
+        Manager::Asset::GetIcon(Model::Asset::Icon::SETTINGS, {32, 32}),
         this
     };
     gaze::source<int> settingsButtonYPadding{Style::Spacing::S16()};

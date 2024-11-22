@@ -69,6 +69,15 @@ wxString Asset::GetIconPath(Model::Asset::Icon icon) {
         case Model::Asset::Icon::YOUTUBE:
             path.SetFullName("YouTube.svg");
             break;
+        case Model::Asset::Icon::BROWSE:
+            path.SetFullName("browse.svg");
+            break;
+        case Model::Asset::Icon::SETTINGS:
+            path.SetFullName("settings.svg");
+            break;
+        case Model::Asset::Icon::VERIFY:
+            path.SetFullName("verify.svg");
+            break;
     }
 
     return path.GetFullPath();
